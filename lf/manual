@@ -1,0 +1,25 @@
+# LF File Manager - Quick Reference
+
+## Navigation
+- `Enter` - Open file/directory
+- `cd` - Change directory (prompts)
+
+## File Operations
+- `y` - Copy
+- `x` - Cut
+- `p` - Paste
+- `dd` - Delete permanently
+- `dt` - Move to trash
+- `mf` - New file
+- `md` - New directory
+
+## View & Tools
+- `.` - Toggle hidden files
+- `R` - Reload
+- `C` - Clear selections
+- `au` - Extract archive
+- `bg` - Set wallpaper
+- `?` - Show this manual
+
+---
+Press `q` to quit LF

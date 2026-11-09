@@ -1,0 +1,102 @@
+# Basic Settings
+set hidden false
+set ignorecase true
+set icons true
+set drawbox true
+
+# Custom Functions
+cmd mkdir ${{
+  printf "Directory Name: "
+  read ans
+  mkdir "$ans"
+}}
+
+cmd mkfile ${{
+  printf "File Name: "
+  read ans
+  touch "$ans"
+}}
+
+cmd setwallpaper ${{
+  setwallpaper "$f"
+}}
+
+# Archive Bindings
+cmd unarchive ${{
+  case "$f" in
+    *.zip) tar -xf "$f" 2>/dev/null || unzip "$f" ;;
+    *.rar) unrar x "$f" ;;
+    *.tar.gz) tar -xzvf "$f" ;;
+    *.tar.bz2) tar -xjvf "$f" ;;
+    *.tar) tar -xvf "$f" ;;
+    *.7z) 7z e "$f" ;;
+    *) echo "Unsupported format" ;;
+  esac
+}}
+
+# Trash Bindings
+cmd trash ${{
+  printf '%s\n' "$fx" | while IFS= read -r file; do
+    [ -n "$file" ] && trash-put "$file"
+  done
+}}
+
+# Delete Bindings
+cmd delete ${{
+  printf "Delete selected files/directories? [y/N] "
+  read ans
+  if [ "$ans" = "y" ] || [ "$ans" = "Y" ]; then
+    rm -rf -- $fx
+  fi
+}}
+
+# Open Files
+cmd open &{{
+  case "$f" in
+    *.md)
+      viewmd "$f"
+      ;;
+    *.png|*.jpg|*.jpeg|*.gif|*.webp|*.bmp|*.tiff|*.tif|*.avif)
+      eog "$f" >/dev/null 2>&1 &
+      ;;
+    *)
+      case "$(file --mime-type -Lb "$f")" in
+        text/*) lf -remote "send $id \$nvim \$fx" ;;
+        *) xdg-open "$f" ;;
+      esac
+      ;;
+  esac
+}}
+
+# File Information
+cmd on-select &{{
+  lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
+}}
+
+# Bindings
+map c
+map d
+map m
+map au unarchive
+
+# Basic Functions
+map . set hidden!
+map p paste
+map x cut
+map y copy
+map <enter> open
+map R reload
+map mf mkfile
+map md mkdir
+map bg setwallpaper
+map C clear
+map dd delete
+map dt trash
+map cd push :cd<space>
+
+# Manual / Help
+cmd help ${{
+  less ~/.config/lf/MANUAL.md
+}}
+
+map ? push :help<enter>

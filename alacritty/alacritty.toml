@@ -1,0 +1,35 @@
+[cursor.style]
+blinking = "Off"
+shape = "UnderLine"
+
+[font]
+size = 8
+
+[colors.primary]
+background = "#000000"
+# foreground = "#00ff20"
+
+[font.normal]
+# family = "JetBrains Mono ExtraBold"
+family = "Liberation Mono"
+style = "Regular"
+
+[window]
+decorations = "none"
+opacity = 0.6
+startup_mode = "maximized"
+
+[window.padding]
+x = 20
+y = 20
+
+[general]
+import = [
+    "~/.config/alacritty/themes/themes/blood_moon.toml"
+    #"~/.config/alacritty/themes/themes/alabaster_dark.toml"
+
+]
+# themes
+# https://github.com/alacritty/alacritty-theme?tab=readme-ov-file
+# old font 
+# family = "Liberation Mono"
